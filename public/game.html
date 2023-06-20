@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dice Game</title>
+</head>
+<body>
+    <h1 class="user">Welcome to the Dice Game</h1>
+    <h1 class="message"></h1>
+    <div class="output"></div>
+    <input name="user" type="text" value="user">
+    <button class="btn1">Join</button>
+    <button class="btn2" style="display: none">Roll</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const output = document.querySelector('.output')
+        const message = document.querySelector('.message');
+        const user = document.querySelector('input');
+        const btn1 = document.querySelector('.btn1');
+        const btn2 = document.querySelector('.btn2');
+        const topMessage = document.querySelector('.user')
+
+        btn1.addEventListener('click', function(){
+            let id = 'player_'+Math.floor(Date.now()*Math.random());
+            // let user = 'test user';
+            socket.emit('new player',id,user.value);
+            user.style.display = 'none';
+            btn1.style.display = 'none';
+            btn2.style.display = 'block';
+            topMessage.textContent = 'Player:'+user.value;
+        })
+        btn2.addEventListener('click', function() {
+            socket.emit('roll');
+            btn2.disabled = true;
+
+        })
+        socket.on('players',listPlayers);
+
+        function listPlayers(players){
+            // console.log(players);
+            output.innerHTML = 'players:';
+            players.forEach(function(player){
+                let div = document.createElement('div');
+                div.textContent = `${player.name} roll = ${player.roll}`;
+                div.style.color = player.winner ? 'green' : 'black';
+                output.appendChild(div);
+
+            })
+
+
+        }
+
+    </script>
+</body>
+</html>
