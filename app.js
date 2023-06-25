@@ -59,7 +59,36 @@ io.on('connection',function(socket){
 })
 
 function nextRoundCheck() {
-    
+    if(players.length > 0 ) {
+        let ready = 0;
+        let top = 0;
+        let win = 0;
+        players.forEach(function(player,index) {
+            player.winner = false;
+            if(player.roll) {
+                ready++;
+                if(player.roll && player.roll > top) {
+                    win = index;
+                    top = player.roll;
+
+                }
+            }
+
+        })
+        players[win].winner = true;
+        io.emit('players',players);
+        if(ready >= players.length) {
+            io.emit('inplay','Round #'+round+' winner is ' + players[win].name);
+            round++;
+            players.forEach(function( player,index) {
+                player.winner = false;
+                player.roll = null;
+                player.round = round;
+
+
+            })
+        }
+    }
 }
 
 // console.log(lodash);

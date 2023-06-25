@@ -38,13 +38,22 @@
 
         })
         socket.on('players',listPlayers);
+        socket.on('inplay',checkwinner);
+        function checkwinner(data) {
+            message.innerHTML = data;
+            btn2.disabled = false;
+
+
+        }
 
         function listPlayers(players){
             // console.log(players);
+            message.textContent = players.length > 0 ? `Round ${players[0].round}` : `First round 0`;
             output.innerHTML = 'players:';
             players.forEach(function(player){
                 let div = document.createElement('div');
-                div.textContent = `${player.name} roll = ${player.roll}`;
+                let temp = player.roll == null ? 'waiting' : 'Roll:'+ player.roll;
+                div.textContent = `${player.name} roll = ${temp}`;
                 div.style.color = player.winner ? 'green' : 'black';
                 output.appendChild(div);
 
