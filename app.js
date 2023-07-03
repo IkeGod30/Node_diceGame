@@ -38,8 +38,7 @@ io.on('connection',function(socket){
         };
         players.push(userID);
         io.emit('players',players);
-        // console.log(userID);
-        // console.log(name);
+        
     })
     socket.on('disconnect', function(reason) {
         console.log(reason);
