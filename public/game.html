@@ -25,7 +25,6 @@
 
         btn1.addEventListener('click', function(){
             let id = 'player_'+Math.floor(Date.now()*Math.random());
-            // let user = 'test user';
             socket.emit('new player',id,user.value);
             user.style.display = 'none';
             btn1.style.display = 'none';
