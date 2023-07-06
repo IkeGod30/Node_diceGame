@@ -1,10 +1,3 @@
-// const http = require('http');
-// http.createServer(function(request, response) {
-//     response.writeHead(200, {'Content-Type':'text/plain'})
-//     response.end('The Final Project')
-
-// }).listen(8000);
-
 
 const express = require('express');
 const app = express();
