@@ -6,7 +6,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const lodash = require('lodash');
 
-// console.log(io); // Remove before final build
+// console.log(io); // Remove before final build to keep code tidy
 
 let players = [];
 let round = 0;
