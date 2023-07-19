@@ -8,7 +8,7 @@ const lodash = require('lodash');
 
 // console.log(io); // Remove before final build to keep code tidy
 
-let players = [];
+let players = [];  //Empty array for players
 let round = 0;
 
 app.use(express.static(__dirname+'/public'));
